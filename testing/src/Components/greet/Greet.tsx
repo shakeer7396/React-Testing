@@ -1,7 +1,8 @@
 
 
 export const Greet = () => {
-  return (
-    <div>Greet</div>
-  )
-}
+    return (
+      <div>Greet</div>
+    )
+  }
+  
