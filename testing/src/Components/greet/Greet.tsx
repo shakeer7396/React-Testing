@@ -2,7 +2,7 @@
 
 export const Greet = () => {
     return (
-      <div>Greet</div>
+      <div>Hello</div>
     )
   }
   
