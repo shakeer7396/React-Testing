@@ -61,5 +61,18 @@ test("password input should be change",()=>{
     expect(passwordInputEl.value).toBe(testValue)
 })
 
+test("button input should not be disable when inputs exists",()=>{
+    render(<Login />);
+    const buttonEl =screen.getByRole("button")
+    const userInputEl =screen.getByPlaceholderText(/username/i)
+    const passwordInputEl =screen.getByPlaceholderText(/password/i)
+    const testValue="test"
+
+    fireEvent.change(userInputEl, {target:{value:testValue}})
+    fireEvent.change(passwordInputEl, {target:{value:testValue}})
+
+
+    expect(buttonEl).not.toBeDisabled()
+})
 
 
