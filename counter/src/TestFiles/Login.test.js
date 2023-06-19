@@ -1,4 +1,4 @@
-import {render,screen} from "@testing-library/react";
+import {fireEvent, render,screen} from "@testing-library/react";
 import Login from "../Components/Login";
 
 test("username input should be rendered",()=>{
@@ -46,13 +46,19 @@ test("error message should not be visible",()=>{
 test("username input should be change",()=>{
     render(<Login />);
     const userInputEl =screen.getByPlaceholderText(/username/i)
-    expect(userInputEl).toBeInTheDocument()
+    const testValue="test"
+
+    fireEvent.change(userInputEl, {target:{value:testValue}})
+    expect(userInputEl.value).toBe(testValue)
 })
 
 test("password input should be change",()=>{
     render(<Login />);
     const passwordInputEl =screen.getByPlaceholderText(/password/i)
-    expect(passwordInputEl).toBeInTheDocument()
+    const testValue="test"
+
+    fireEvent.change(passwordInputEl, {target:{value:testValue}})
+    expect(passwordInputEl.value).toBe(testValue)
 })
 
 
