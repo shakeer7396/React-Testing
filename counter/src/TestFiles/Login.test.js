@@ -1,6 +1,17 @@
 import {fireEvent, render,screen} from "@testing-library/react";
 import Login from "../Components/Login";
 
+jest.mock("axios", ()=>({
+
+    __esModule:true,
+    
+    default:{
+        get:()=>({
+            data:{id:1,name:"John"}
+        })
+    }
+}))
+
 test("username input should be rendered",()=>{
     render(<Login />);
     const userInputEl =screen.getByPlaceholderText(/username/i)
@@ -31,10 +42,16 @@ test("password input should be empty",()=>{
     expect(passwordInputEl.value).toBe("")
 })
 
-test("button input should be disable",()=>{
+test("button should be disable",()=>{
     render(<Login />);
     const buttonEl =screen.getByRole("button")
     expect(buttonEl).toBeDisabled()
+})
+
+test("loading should not be rendered",()=>{
+    render(<Login />);
+    const buttonEl =screen.getByRole("button")
+    expect(buttonEl).not.toHaveTextContent(/please wait/i)
 })
 
 test("error message should not be visible",()=>{
@@ -75,4 +92,16 @@ test("button input should not be disable when inputs exists",()=>{
     expect(buttonEl).not.toBeDisabled()
 })
 
+test("loading should be rendered when click",()=>{
+    render(<Login />);
+    const buttonEl =screen.getByRole("button")
+    const userInputEl =screen.getByPlaceholderText(/username/i)
+    const passwordInputEl =screen.getByPlaceholderText(/password/i)
+    const testValue="test"
+
+    fireEvent.change(userInputEl, {target:{value:testValue}})
+    fireEvent.change(passwordInputEl, {target:{value:testValue}})
+    fireEvent.click(buttonEl);
+    expect(buttonEl).toHaveTextContent(/please wait/i)
+})
 
