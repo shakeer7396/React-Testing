@@ -8,7 +8,7 @@ test("Counter increment and decrement when Click buttons", () => {
   const decreaseBtn = screen.getByText(/decrease/i);
   const counter = screen.getByText("0");
   userEvent.click(increaseBtn);
-  expect(counter).toHaveTextContent("1");
+  expect(counter).toHaveTextContent("1")
   userEvent.click(decreaseBtn);
   expect(counter).toHaveTextContent("0");
 });
